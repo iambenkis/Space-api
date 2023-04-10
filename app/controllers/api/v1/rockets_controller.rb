@@ -1,9 +1,16 @@
 class Api::V1::RocketsController < ApplicationController
     before_action :set_rocket, only: %i[ show update destroy ]
+    before_action :authorize
+    
+
+    # def  my_rockets
+    #   rockets = Rocket.all.where(user_id: params[:id])
+    #   render json: rockets
+    # end
 
     # GET /rockets
     def index
-      @rockets = Rocket.all
+      @rockets = @user.rockets.all
   
       render json: @rockets
     end
@@ -15,10 +22,10 @@ class Api::V1::RocketsController < ApplicationController
   
     # POST /rockets
     def create
-      @rocket = Rocket.new(rocket_params)
+      @rocket = Rocket.new(rocket_params.merge(user: @user)) 
   
       if @rocket.save
-        render json: @rocket, status: :created, location: @rocket
+        render json: @rocket, status: :created
       else
         render json: @rocket.errors, status: :unprocessable_entity
       end
@@ -41,12 +48,13 @@ class Api::V1::RocketsController < ApplicationController
     private
       # Use callbacks to share common setup or constraints between actions.
     def set_rocket
-        @rocket = Rocket.find(params[:id])
+        @rocket = @user.rockets.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def rocket_params
         params.require(:rocket).permit(:name, :description, :status, :image)
+        # params.permit(:name, :user_id, :description, :status, :image)
     end
 end
   

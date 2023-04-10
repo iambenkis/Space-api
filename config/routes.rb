@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :rockets
-  resources :missions
+  post '/auth/login', to: 'api/v1/users#login' 
+  post '/auth/signup/', to: 'users#create'
+  # get '/*a', to: 'application#not_found'
   # resources :rockets
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :missions
       resources :rockets
+      resources :users, except: [:create]
     end
   end
 end

@@ -1,9 +1,10 @@
 class Api::V1::MissionsController < ApplicationController
     before_action :set_mission, only: %i[ show update destroy ]
-  
+    before_action :authorize
+
     # GET /missions
     def index
-      @missions = Mission.all
+      @missions = @user.missions.all
   
       render json: @missions
     end
@@ -15,10 +16,10 @@ class Api::V1::MissionsController < ApplicationController
   
     # POST /missions
     def create
-      @mission = Mission.new(mission_params)
+      @mission = Mission.new(mission_params.merge(user: @user)) 
   
       if @mission.save
-        render json: @mission, status: :created, location: @mission
+        render json: @mission, status: :created
       else
         render json: @mission.errors, status: :unprocessable_entity
       end
@@ -41,12 +42,12 @@ class Api::V1::MissionsController < ApplicationController
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_mission
-        @mission = Mission.find(params[:id])
+        @mission = @user.missions.find(params[:id])
       end
   
       # Only allow a list of trusted parameters through.
-      def mission_params
-        params.require(:mission).permit(:name, :description, :status)
+      def mission_params 
+        params.permit(:name, :description, :status)
       end
   end
   
