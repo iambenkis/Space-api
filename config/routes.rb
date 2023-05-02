@@ -1,16 +1,17 @@
 Rails.application.routes.draw do
+  # resources :reserveds
   post '/auth/login', to: 'api/v1/users#login' 
-  post '/auth/signup/', to: 'users#create'
+  post '/auth/signup', to: 'users#create'
+  get  '/users', to: 'users#index'
+  get 'users/:username', to: 'users#show'
   # get '/*a', to: 'application#not_found'
-  # resources :rockets
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
   # root "articles#index"
   namespace :api do
     namespace :v1 do
       resources :missions
-      resources :rockets
+      resources :rockets 
+      resources :reserveds
       resources :users, except: [:create]
     end
   end
