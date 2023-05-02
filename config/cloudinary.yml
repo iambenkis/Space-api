@@ -1,0 +1,18 @@
+development:
+  cloud_name: 'dvr9o72qt'
+  api_key: '491641989778956'
+  api_secret: "xyLlOdvEWjNYOtIehrkKklyRlHU"
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: 'dvr9o72qt'
+  api_key: '491641989778956'
+  api_secret: "xyLlOdvEWjNYOtIehrkKklyRlHU"
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: 'dvr9o72qt'
+  api_key: '491641989778956'
+  api_secret: "xyLlOdvEWjNYOtIehrkKklyRlHU"
+  enhance_image_tag: true
+  static_file_support: false
