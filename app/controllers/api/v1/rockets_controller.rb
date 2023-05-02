@@ -3,15 +3,18 @@ class Api::V1::RocketsController < ApplicationController
     before_action :authorize
     
 
-    # def  my_rockets
-    #   rockets = Rocket.all.where(user_id: params[:id])
-    #   render json: rockets
-    # end
+    def  my_rockets
+      rockets = Rocket.all.where(user_id: params[:id])
+      render json: rockets
+    end
+
+    def reserved
+      
+    end
 
     # GET /rockets
     def index
       @rockets = @user.rockets.all
-  
       render json: @rockets
     end
   
@@ -53,8 +56,8 @@ class Api::V1::RocketsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def rocket_params
-        params.require(:rocket).permit(:name, :description, :status, :image)
-        # params.permit(:name, :user_id, :description, :status, :image)
+        # params.require(:rocket).permit(:name, :description, :status, :image)
+        params.permit(:name, :description, :status, :image)
     end
 end
   

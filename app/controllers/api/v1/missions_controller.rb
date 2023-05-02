@@ -1,6 +1,7 @@
 class Api::V1::MissionsController < ApplicationController
     before_action :set_mission, only: %i[ show update destroy ]
     before_action :authorize
+    # load_and_authorize_resource
 
     # GET /missions
     def index
